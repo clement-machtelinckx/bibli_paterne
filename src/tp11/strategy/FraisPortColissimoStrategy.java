@@ -1,9 +1,8 @@
 package tp11.strategy;
 
+import java.util.List;
 import tp11.Commande;
 import tp11.Livre;
-
-import java.util.List;
 
 /*****
  * Stratégie correspondant au mode d'expédition : Colissimo
@@ -39,4 +38,3 @@ public class FraisPortColissimoStrategy implements FraisPortStrategy {
         return 15.0;
     }
 }
-s
