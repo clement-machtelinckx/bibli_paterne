@@ -4,22 +4,73 @@ import tp11.dto.Entity;
 import tp11.dto.UtilisateurDTO;
 
 /******************************************************************
- * Il s'agit d'une entité (voir pattern DTO), autrement dit
- * un objet complexe embarquant de la logique métier.
- * Cet objet propose une méthode toDTO() qui fournira la version légère
- * de cet objet, afin de faciliter les communications.
+ * Entité Utilisateur (pattern DTO).
  *********************************************************************/
 public class Utilisateur implements Entity {
     // Liste des attributs : interdiction d'en ajouter/retirer
     private int id;
     private String nom;
     private String email;
-    private boolean isPremium = false ;
+    private boolean isPremium = false;
 
-    // TODO à vous d'écrire les getters/setters, le(s) constructeur(s) et tout ce dont vous aurez besoin
+    public Utilisateur() {
+    }
 
+    public Utilisateur(int id, String nom, String email, boolean isPremium) {
+        setId(id);
+        setNom(nom);
+        setEmail(email);
+        setPremium(isPremium);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("id must be > 0");
+        }
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        if (nom == null || nom.isBlank()) {
+            throw new IllegalArgumentException("nom must not be blank");
+        }
+        this.nom = nom;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        if (email == null || email.isBlank()) {
+            throw new IllegalArgumentException("email must not be blank");
+        }
+        this.email = email;
+    }
+
+    public boolean isPremium() {
+        return isPremium;
+    }
+
+    public void setPremium(boolean premium) {
+        isPremium = premium;
+    }
+
+    @Override
     public UtilisateurDTO toDTO() {
-        // TODO a coder
-        return null;
+        UtilisateurDTO dto = new UtilisateurDTO();
+        dto.setId(this.id);
+        dto.setNom(this.nom);
+        dto.setEmail(this.email);
+        dto.setPremium(this.isPremium);
+        return dto;
     }
 }

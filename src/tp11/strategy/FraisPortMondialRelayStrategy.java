@@ -1,7 +1,7 @@
 package tp11.strategy;
 
 import tp11.Commande;
-import tp11.dto.LivreDTO;
+import tp11.Livre;
 
 import java.util.List;
 
@@ -9,10 +9,11 @@ import java.util.List;
  * Stratégie correspondant au mode d'expédition : Mondial Relay
  */
 public class FraisPortMondialRelayStrategy implements FraisPortStrategy {
-    // TODO à vous de déterminer s'il y a besoin d'attributs
+
+    private final Commande contexte;
 
     public FraisPortMondialRelayStrategy(Commande contexte) {
-        // TODO
+        this.contexte = contexte;
     }
 
     /***
@@ -22,7 +23,15 @@ public class FraisPortMondialRelayStrategy implements FraisPortStrategy {
      */
     @Override
     public double calculerFraisPort() {
-        // TODO Calcul basé sur le poids des livres
-        return 0 ;
+        double poidsTotal = 0.0;
+        List<Livre> livres = contexte.getLivresCharges();
+        for (Livre l : livres) {
+            poidsTotal += l.getPoids();
+        }
+
+        if (poidsTotal <= 3.0) {
+            return 4.0;
+        }
+        return 8.0;
     }
 }

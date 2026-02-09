@@ -1,12 +1,21 @@
 package tp11.state;
 
-
+import tp11.Commande;
 
 /**
  * Etat représentant la commande expédiée.
- * Son état suivant est : Aucun état
- * En revanche on va modifier le status de la commande par : Livrée
+ * Etat terminal : à l'entrée, status = "Livrée"
  */
 public class CommandeExpediee implements CommandeState {
-    // TODO à vous d'écrire ce qu'il faut
+
+    @Override
+    public void entrerDansEtat(Commande commande) {
+        commande.setStatus("Livrée");
+    }
+
+    @Override
+    public CommandeState etatSuivant() {
+        // Etat terminal : on reste "Livrée"
+        return this;
+    }
 }

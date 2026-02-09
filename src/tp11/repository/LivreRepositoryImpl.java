@@ -1,18 +1,33 @@
 package tp11.repository;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import tp11.Livre;
 
-
-
 /**
- * Implémentation simulée du repository (pas de base de données réelle)
- * Dans une application réelle, le repository sera responsable de la
- * persistance et donc de la connexion/gestion de la base de données.
+ * Implémentation in-memory du repository.
+ * - Map pour accès direct par id
+ * - LinkedHashMap pour conserver un ordre d'insertion stable (utile pour findAll()).
  */
-
-
 public class LivreRepositoryImpl implements LivreRepository {
-    // TODO à vous de définir les attributs nécéessaires (comment allez-vous gérer la collection de livres ?)
 
-    // TODO écrivez le contenu de cette classe qui implémente LivreRepository
+    private final Map<Integer, Livre> livresById = new LinkedHashMap<>();
+
+    @Override
+    public void save(Livre livre) {
+        if (livre == null) {
+            throw new IllegalArgumentException("livre must not be null");
+        }
+        livresById.put(livre.getId(), livre);
+    }
+
+    @Override
+    public Iterable<Livre> findAll() {
+        return livresById.values();
+    }
+
+    @Override
+    public Livre findById(int id) {
+        return livresById.get(id);
+    }
 }
